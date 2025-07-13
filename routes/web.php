@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FileUploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,3 +96,14 @@ Route::middleware('auth')->group(function () {
         return view('restricted_page');
     })->middleware('age.check')->name('restricted.page');
 });
+
+/*
+|--------------------------------------------------------------------------
+| Route Modul 8
+|--------------------------------------------------------------------------
+*/
+Route::get('/upload', [FileUploadController::class, 'showUploadForm'])->name('upload.form');
+Route::post('/upload', [FileUploadController::class, 'storeFile'])->name('upload.store');
+Route::get('/files', [FileUploadController::class, 'listFiles'])->name('files.list');
+Route::delete('/files/{filename}', [FileUploadController::class, 'deleteFile'])->name('files.delete');
+Route::get('/files/download/{filename}', [FileUploadController::class, 'downloadFile'])->name('files.download');
