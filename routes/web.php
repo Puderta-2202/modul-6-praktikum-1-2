@@ -38,25 +38,60 @@ use App\Http\Controllers\AuthController;
 |--------------------------------------------------------------------------
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// // Route untuk menampilkan form login
+// Route::get('/login', function () {
+//     return view('auth.login');
+// })->name('login');
+
+// // Route untuk memproses login
+// Route::post('/login', [AuthController::class, 'cekLogin'])->name('cek-login');
+
+// // Grup route yang memerlukan autentikasi (middleware 'auth')
+// Route::middleware('auth')->group(function () {
+//     // Route untuk halaman dashboard
+//     Route::get('/dashboard', function () {
+//         return view('dashboard');
+//     })->name('dashboard');
+
+//     // Route untuk logout
+//     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+// });
+
+/*
+|--------------------------------------------------------------------------
+| Route Modul 7
+|--------------------------------------------------------------------------
+*/
+
+// Route default (opsional, bisa Anda pertahankan atau sesuaikan)
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Route untuk menampilkan form login
+// Route untuk menampilkan form login (dari Praktikum 2)
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
-// Route untuk memproses login
+// Route untuk memproses login (dari Praktikum 2)
 Route::post('/login', [AuthController::class, 'cekLogin'])->name('cek-login');
 
 // Grup route yang memerlukan autentikasi (middleware 'auth')
 Route::middleware('auth')->group(function () {
-    // Route untuk halaman dashboard
+    // Route untuk halaman dashboard (dari Praktikum 2)
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
-    // Route untuk logout
+    // Route untuk logout (dari Praktikum 2)
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    // Route yang dilindungi oleh middleware CheckAge (Tugas Modul 7)
+    Route::get('/akses-terbatas', function () {
+        return view('restricted_page');
+    })->middleware('age.check')->name('restricted.page');
 });
